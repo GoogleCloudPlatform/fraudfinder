@@ -15,10 +15,18 @@ gcloud services enable aiplatform.googleapis.com
 gcloud services enable pubsub.googleapis.com
 gcloud services enable run.googleapis.com
 gcloud services enable cloudbuild.googleapis.com
+gcloud services enable dataflow.googleapis.com
 gcloud pubsub subscriptions create "ff-tx-sub" --topic="ff-tx" --topic-project="cymbal-fraudfinder"
 gcloud pubsub subscriptions create "ff-txlabels-sub" --topic="ff-txlabels" --topic-project="cymbal-fraudfinder"
 gcloud pubsub subscriptions create "ff-tx-highfraud-sub" --topic="ff-tx-highfraud" --topic-project="cymbal-fraudfinder"
 gcloud pubsub subscriptions create "ff-txlabels-highfraud-sub" --topic="ff-txlabels-highfraud" --topic-project="cymbal-fraudfinder"
+
+# Give GCS access to service account to deploy Vertex AI Pipelines
+PROJECT_ID=$(gcloud config get-value project)
+PROJECT_NUM=$(gcloud projects list --filter="$PROJECT_ID" --format="value(PROJECT_NUMBER)")
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+      --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com"\
+      --role='roles/storage.admin'
 ```
 
 You can navigate to the [Pub/Sub console](https://console.cloud.google.com/cloudpubsub/subscription/) to see the subscriptions. 
