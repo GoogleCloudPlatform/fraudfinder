@@ -1,5 +1,24 @@
 ## README.md
 
+[Fraudfinder](https://github.com/googlecloudplatform/fraudfinder) is a series of labs on how to build a real-time fraud detection system on Google Cloud. Throughout the Fraudfinder labs, you will learn how to read historical bank transaction data stored in data warehouse, read from a live stream of new transactions, perform exploratory data analysis (EDA), do feature engineering, ingest features into a feature store, train a model using feature store, register your model in a model registry, evaluate your model, deploy your model to an endpoint, do real-time inference on your model with feature store, and monitor your model.
+
+
+## How to use this repo
+
+This repo is organized across various notebooks as:
+
+* [00_environment_setup.ipynb](00_environment_setup.ipynb)
+* [01_exploratory_data_analysis.ipynb](01_exploratory_data_analysis.ipynb)
+* [02_feature_engineering_batch.ipynb](02_feature_engineering_batch.ipynb)
+* [03_feature_engineering_streaming.ipynb](03_feature_engineering_streaming.ipynb)
+* [bqml/](bqml/)
+  * [04_model_training_and_prediction.ipynb](bqml/04_model_training_and_prediction.ipynb)
+  * [05_model_training_pipeline_formalization.ipynb](bqml/05_model_training_pipeline_formalization.ipynb)
+  * [06_model_monitoring.ipynb](bqml/06_model_monitoring.ipynb)
+
+
+## Running the notebooks
+
 To run the notebooks successfully, follow the steps below.
 
 ### Step 1: Enable the Notebooks API
@@ -18,8 +37,6 @@ gcloud services enable cloudbuild.googleapis.com
 gcloud services enable dataflow.googleapis.com
 gcloud pubsub subscriptions create "ff-tx-sub" --topic="ff-tx" --topic-project="cymbal-fraudfinder"
 gcloud pubsub subscriptions create "ff-txlabels-sub" --topic="ff-txlabels" --topic-project="cymbal-fraudfinder"
-gcloud pubsub subscriptions create "ff-tx-highfraud-sub" --topic="ff-tx-highfraud" --topic-project="cymbal-fraudfinder"
-gcloud pubsub subscriptions create "ff-txlabels-highfraud-sub" --topic="ff-txlabels-highfraud" --topic-project="cymbal-fraudfinder"
 
 # Give GCS access to service account to deploy Vertex AI Pipelines
 PROJECT_ID=$(gcloud config get-value project)
@@ -31,38 +48,22 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 
 You can navigate to the [Pub/Sub console](https://console.cloud.google.com/cloudpubsub/subscription/) to see the subscriptions. 
 
-### Step 2: Set IAM roles
+#### Step 2: Create a User-Managed Notebook instance on Vertex AI Workbench
 
-For the sake of simplicity, let's assume you will use the `Compute Engine default service account`. 
+Click on "+ NEW NOTEBOOK" on [the Vertex AI Workbench page](https://console.cloud.google.com/vertex-ai/workbench/list/instances).
 
-Go to the [IAM Admin](https://console.cloud.google.com/iam-admin), click on `ADD`. 
+For the instance, select "**Python 3**", select a location, and then click "**CREATE**" to create the notebook instance.
 
-In the view, search and select `Compute Engine default service account` and then assign the following roles:
+The instance will be ready when you can click on "**OPEN JUPYTERLAB**" on the [User-Managed Notebooks page](https://console.cloud.google.com/vertex-ai/workbench/list/instances). It may take a few minutes for the instance to be ready.
 
-    - BigQuery Admin
-    - Storage Admin
-    - Storage Object Admin
-    - Vertex AI Administrator
-    - Pub/Sub Admin
-
-#### Step 4: Create a Managed Notebook instance
-
-[Create a Managed Notebook](https://console.cloud.google.com/vertex-ai/workbench/create-managed) on Vertex AI Workbench, with the settings:
-- Region us-central1
-- Under "**Permission**", select "**Service account**"
-- Click on "**Advanced settings**" to reveal more settings:
-  - Under "**Security**", ensure that "**Enable terminal**" is selected
-
-Then click "**Create**" to create the notebook instance. The instance will be ready when you can click on "**OPEN JUPYTERLAB**" on the [Managed Notebooks page](https://console.cloud.google.com/vertex-ai/workbench/list/managed) on GCP. It may take a few minutes for the instance to be ready.
-
-#### Step 5: Open JupyterLab
+#### Step 3: Open JupyterLab
 Click on "**OPEN JUPYTERLAB**", which should launch your Managed Notebook in a new tab.
 
-#### Step 6: Opening a terminal
+#### Step 4: Opening a terminal
 
 Open a terminal via the file menu: **File > New > Terminal**.
 
-#### Step 7: Cloning this repo
+#### Step 5: Cloning this repo
 
 Run the following code to clone this repo:
 ```
@@ -74,11 +75,9 @@ or navigate to the menu on the left in the Jupyter Lab environment -> Git -> Clo
 Once cloned, you should now see the **fraudfinder** folder in your main directory.
 
 
-#### Step 8: Open the first notebook
+#### Step 6: Open the first notebook
 
 Open the first notebook:
 - `00_environment_setup.ipynb`
 
-Select "Python (local)" as your kernel.
-
-Follow the instructions in the notebook, and continue through the remaining notebooks in the `notebooks` folder.
+Follow the instructions in the notebook, and continue through the remaining notebooks.
