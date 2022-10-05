@@ -35,6 +35,8 @@ gcloud services enable pubsub.googleapis.com
 gcloud services enable run.googleapis.com
 gcloud services enable cloudbuild.googleapis.com
 gcloud services enable dataflow.googleapis.com
+gcloud services enable bigquery.googleapis.com
+
 gcloud pubsub subscriptions create "ff-tx-sub" --topic="ff-tx" --topic-project="cymbal-fraudfinder"
 gcloud pubsub subscriptions create "ff-txlabels-sub" --topic="ff-txlabels" --topic-project="cymbal-fraudfinder"
 
