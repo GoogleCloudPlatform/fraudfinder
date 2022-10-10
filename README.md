@@ -53,7 +53,7 @@ To run the notebooks successfully, follow the steps below.
   gcloud pubsub subscriptions create "ff-tx-sub" --topic="ff-tx" --topic-project="cymbal-fraudfinder"
   gcloud pubsub subscriptions create "ff-txlabels-sub" --topic="ff-txlabels" --topic-project="cymbal-fraudfinder"
   
-  # Give GCS access to service account to deploy Vertex AI Pipelines
+  # Run the following command to grant the Compute Engine default service account access to read and write pipeline artifacts in Google Cloud Storage.
   PROJECT_ID=$(gcloud config get-value project)
   PROJECT_NUM=$(gcloud projects list --filter="$PROJECT_ID" --format="value(PROJECT_NUMBER)")
   gcloud projects add-iam-policy-binding $PROJECT_ID \
