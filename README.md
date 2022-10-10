@@ -20,7 +20,7 @@ This repo is organized across various notebooks as:
 
 Before you begin, it is recommended to create a new Google Cloud project so that the activities from this lab do not interfere with other existing projects. 
 
-> If you are using a provided temporary account, please just select an existing project that is pre-created before the event as shown in the image below.
+If you are using a provided temporary account, please just select an existing project that is pre-created before the event as shown in the image below.
 
 ![image](./misc/images/select-project-dasher.png)
 
