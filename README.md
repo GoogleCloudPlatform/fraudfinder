@@ -22,8 +22,6 @@ Before you begin, it is recommended to create a new Google Cloud project so that
 
 If you are using a provided temporary account, please just select an existing project that is pre-created before the event as shown in the image below.
 
-![image](./misc/images/select-project-dasher.png)
-
 It is not uncommon for the pre-created project in the provided temporary account to have a different name. Please check with the account provider if you need more clarifications on which project to choose.
 
 If you are NOT using a temporary account, please create a new Google Cloud project and select that project. You may refer to the official documentation ([Creating and Managing Projects](https://cloud.google.com/resource-manager/docs/creating-managing-projects)) for detailed instructions.
@@ -32,14 +30,19 @@ If you are NOT using a temporary account, please create a new Google Cloud proje
 
 To run the notebooks successfully, follow the steps below.
 
-### Step 1: Enable the Notebooks API
+### Step 0: Select your Google Cloud project
+Please make sure that you have selected a Google Cloud project as shown below:
+  ![image](./misc/images/select-project-dasher.png)
 
-- Please make sure that you have selected a Google Cloud project as shown in the [Creating a Google Cloud project](#creating-a-google-cloud-project) section previously.
+### Step 1: Initial setup using Cloud Shell
 
 - Activate Cloud Shell in your project by clicking the `Activate Cloud Shell` button as shown in the image below.
   ![image](./misc/images/activate-cloud-shell.png)
 
 - Once the Cloud Shell has activated, copy the following codes and execute them in the Cloud Shell to enable the necessary APIs, and create Pub/Sub subscriptions to read streaming transactions from public Pub/Sub topics.
+
+- Authorize the Cloud Shell if it prompts you to. Please note that this step may take a few minutes. You can navigate to the [Pub/Sub console](https://console.cloud.google.com/cloudpubsub/subscription/) to verify the subscriptions. 
+
   ```shell
   gcloud services enable notebooks.googleapis.com
   gcloud services enable cloudresourcemanager.googleapis.com
@@ -60,8 +63,6 @@ To run the notebooks successfully, follow the steps below.
         --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com"\
         --role='roles/storage.admin'
   ```
-
-- Authorize the Cloud Shell if it prompts you to. Please note that this step may take a few minutes. You can navigate to the [Pub/Sub console](https://console.cloud.google.com/cloudpubsub/subscription/) to verify the subscriptions. 
 
 #### Step 2: Create a User-Managed Notebook instance on Vertex AI Workbench
 
