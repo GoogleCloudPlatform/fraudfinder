@@ -164,4 +164,5 @@ bqml/components/
 bqml/bqml-pipeline-ff.json
 beam_pipeline/
 models/
-
+data/
+vertex_ai/build_training
