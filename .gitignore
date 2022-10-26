@@ -168,3 +168,4 @@ data/
 vertex_ai/build_training
 vertex_ai/model
 vertex_ai/predictions.json
+vertex_ai/pipelines
