@@ -159,7 +159,13 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-
+# Custom
 bqml/components/
 bqml/bqml-pipeline-ff.json
 beam_pipeline/
+models/
+data/
+vertex_ai/build_training
+vertex_ai/model
+vertex_ai/predictions.json
+vertex_ai/pipelines
