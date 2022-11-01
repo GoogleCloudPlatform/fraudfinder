@@ -1,0 +1,87 @@
+########################
+# This is the pipeline deployment code: cloudbuild.yaml
+# It is the CI/CD for training pipeline
+# It can be triggered in response to the repository event such as a new commit in the main branch of the repo (or new tag), e.g. upon change in the xgboost.py code
+########################
+
+steps:
+
+# This step builds the dask xgboost container image to be used for training. 
+# The PROJECT_ID variables is automatically replaced by Cloud Build.
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build xgboost component'
+  dir: '${_WORKSPACE_DIR}'
+  args:
+  - 'build'
+  - '-t'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_IMAGE_REPOSITORY}/dask-xgb-classificator:v1'
+  - 'build_training/'
+
+
+# #This step pushes the dask xgboost image to the GCP Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Push xgboost component'
+  args:
+  - 'push'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_IMAGE_REPOSITORY}/dask-xgb-classificator:v1'
+
+
+# # # This step runs a unit test which calls Vertex AI training. 
+# - name: python
+#   id: 'Build Unit Test'
+#   entrypoint: pip
+#   args: ["install", "google-cloud-aiplatform", "--upgrade", "--user"]
+ 
+# - name: python
+#   id: 'Run Unit Test'
+#   dir: '${_WORKSPACE_DIR}'
+#   entrypoint: python
+#   args: ["unit_test/unit_test.py"] 
+#   timeout: 5200s
+#   env:
+#   - 'PROJECT_ID=$PROJECT_ID'  
+#   - 'REGION=$_REGION'
+#   - 'BUCKET_NAME=$_BUCKET_NAME' 
+#   - 'IMAGE_REPOSITORY=$_IMAGE_REPOSITORY'
+
+
+# This step builds the KFP container image to compile the pipeline. 
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build KFP Container'
+  dir: '${_WORKSPACE_DIR}'
+  args:
+  - 'build'
+  - '-t'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_IMAGE_REPOSITORY}/kfp:latest'
+  - 'deploy_kfp_pipeline/'
+  
+# This step push the KFP container image. 
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Push kfp Container'
+  args:
+  - 'push'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_IMAGE_REPOSITORY}/kfp:latest'
+
+# This step compiles the latest KFP pipeline in the /pipelines folder. 
+- name: 'us-central1-docker.pkg.dev/$PROJECT_ID/${_IMAGE_REPOSITORY}/kfp:latest'
+  id: 'Compile Pipeline'
+  entrypoint: 'python'
+  dir: '${_WORKSPACE_DIR}'
+  args:
+  - '/app/pipeline_compile.py'
+  - '--pipeline-name=$_PIPELINE_NAME'
+  env:
+  - 'PROJECT_ID=$PROJECT_ID'  
+  # - 'REGION=$_REGION'
+  # - 'BUCKET_NAME=$_BUCKET_NAME' 
+  # - 'IMAGE_REPOSITORY=$_IMAGE_REPOSITORY'
+   
+   
+# Upload compiled pipeline to GCS.
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', 'pipelines/${_PIPELINE_NAME}.json', $_PIPELINE_STORE_URI]
+  dir: '${_WORKSPACE_DIR}'
+  id:  'Upload Pipeline to GCS'
+  waitFor: ['Compile Pipeline']
+  
+timeout: 10000s
