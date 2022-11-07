@@ -18,8 +18,8 @@ from google_cloud_pipeline_components import aiplatform as vertex_ai_components
 from google.cloud import aiplatform as vertex_ai
 
 
-from pipeline.lib.batch_serve import features_to_gcs
-from pipeline.lib.evaluate_model import evaluate_model
+from pipeline.components.batch_serve import features_to_gcs
+from pipeline.components.evaluate_model import evaluate_model
 from google.cloud import storage
 
 
