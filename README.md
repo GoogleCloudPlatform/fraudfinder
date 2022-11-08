@@ -104,4 +104,4 @@ Please make sure that you have selected a Google Cloud project as shown below:
 - Open the first notebook: `00_environment_setup.ipynb`
   ![image](./misc/images/open-notebook-00.png)
 
-- Follow the instructions in the notebook, and continue through the remaining notebooks.
+- Follow the instructions in the notebook, and continue through the remaining notebooks. 
