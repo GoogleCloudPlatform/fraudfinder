@@ -131,7 +131,7 @@ def get_batch_data_bq(PROJECT):
     run_bq_query(f"CREATE SCHEMA IF NOT EXISTS `{PROJECT}`.demographics OPTIONS(location='us-central1');")
 
     run_bq_query(f"""
-    CREATE TABLE IF NOT EXISTS `{PROJECT}`.tx.tx 
+    CREATE OR REPLACE TABLE `{PROJECT}`.tx.tx 
     PARTITION BY
     DATE(TX_TS)
     AS (
@@ -148,7 +148,7 @@ def get_batch_data_bq(PROJECT):
     print(f"BigQuery table created: `{PROJECT}`.tx.tx")
 
     run_bq_query(f"""
-    CREATE TABLE IF NOT EXISTS `{PROJECT}`.tx.txlabels
+    CREATE OR REPLACE TABLE `{PROJECT}`.tx.txlabels
     AS (
         SELECT
         TX_ID,
@@ -160,7 +160,7 @@ def get_batch_data_bq(PROJECT):
     print(f"BigQuery table created: `{PROJECT}`.tx.txlabels")
     
     run_bq_query(f"""
-    CREATE TABLE IF NOT EXISTS `{PROJECT}`.demographics.customers
+    CREATE OR REPLACE TABLE `{PROJECT}`.demographics.customers
     AS (
         SELECT
         *
@@ -171,7 +171,7 @@ def get_batch_data_bq(PROJECT):
     print(f"BigQuery table created: `{PROJECT}`.demographics.customers")
     
     run_bq_query(f"""
-    CREATE TABLE IF NOT EXISTS `{PROJECT}`.demographics.terminals
+    CREATE OR REPLACE TABLE `{PROJECT}`.demographics.terminals
     AS (
         SELECT
         *
@@ -182,7 +182,7 @@ def get_batch_data_bq(PROJECT):
     print(f"BigQuery table created: `{PROJECT}`.demographics.terminals")
     
     run_bq_query(f"""
-    CREATE TABLE IF NOT EXISTS `{PROJECT}`.demographics.customersterminals
+    CREATE OR REPLACE TABLE `{PROJECT}`.demographics.customersterminals
     AS (
         SELECT
         *
