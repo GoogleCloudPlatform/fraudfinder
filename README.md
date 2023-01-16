@@ -1,7 +1,8 @@
 ## Fraudfinder - A comprehensive lab series on how to build a real-time fraud detection system on Google Cloud.
 
-[Fraudfinder](https://github.com/googlecloudplatform/fraudfinder) is a series of labs on how to build a real-time fraud detection system on Google Cloud. Throughout the Fraudfinder labs, you will learn how to read historical payment transactions data stored in a data warehouse, read from a live stream of new transactions, perform exploratory data analysis (EDA), do feature engineering, ingest features into a feature store, train a model using feature store, register your model in a model registry, evaluate your model, deploy your model to an endpoint, do real-time inference on your model with feature store, and monitor your model.
+[Fraudfinder](https://github.com/googlecloudplatform/fraudfinder) FraudFinder is a golden Data to AI workshop to show an end-to-end architecture from raw data to MLOps, through the use case of real-time fraud detection. Fraudfinder is a series of labs to showcase the comprehensive Data to AI journey on Google Cloud, through the use case of real-time fraud detection. Throughout the Fraudfinder labs, you will learn how to read historical payment transactions data stored in a data warehouse, read from a live stream of new transactions, perform exploratory data analysis (EDA), do feature engineering, ingest features into a feature store, train a model using feature store, register your model in a model registry, evaluate your model, deploy your model to an endpoint, do real-time inference on your model with feature store, and monitor your model. Below you will find an image of the overall architecture:
 
+![image](./misc/images/fraudfinder-architecture.png)
 
 ## How to use this repo
 
@@ -52,6 +53,7 @@ Please make sure that you have selected a Google Cloud project as shown below:
   gcloud services enable cloudbuild.googleapis.com
   gcloud services enable dataflow.googleapis.com
   gcloud services enable bigquery.googleapis.com
+  gcloud services enable artifactregistry.googleapis.com
   
   gcloud pubsub subscriptions create "ff-tx-sub" --topic="ff-tx" --topic-project="cymbal-fraudfinder"
   gcloud pubsub subscriptions create "ff-txlabels-sub" --topic="ff-txlabels" --topic-project="cymbal-fraudfinder"
@@ -104,4 +106,4 @@ Please make sure that you have selected a Google Cloud project as shown below:
 - Open the first notebook: `00_environment_setup.ipynb`
   ![image](./misc/images/open-notebook-00.png)
 
-- Follow the instructions in the notebook, and continue through the remaining notebooks.
+- Follow the instructions in the notebook, and continue through the remaining notebooks. 
