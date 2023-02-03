@@ -11,7 +11,7 @@ steps:
 - name: python
   id: 'Build Container for model deployment'
   entrypoint: pip
-  args: ["install", "pytz", "google-cloud-aiplatform==1.18.1", "--upgrade", "--user", "protobuf==3.20.3"]
+  args: ["install", "pytz", "google-cloud-aiplatform==1.21.0", "--upgrade", "--user", "protobuf==3.20.3"]
   
 - name: python
   entrypoint: 'python'
