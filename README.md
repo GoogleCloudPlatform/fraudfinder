@@ -56,12 +56,18 @@ Please make sure that you have selected a Google Cloud project as shown below:
   gcloud pubsub subscriptions create "ff-tx-sub" --topic="ff-tx" --topic-project="cymbal-fraudfinder"
   gcloud pubsub subscriptions create "ff-txlabels-sub" --topic="ff-txlabels" --topic-project="cymbal-fraudfinder"
   
-  # Run the following command to grant the Compute Engine default service account access to read and write pipeline artifacts in Google Cloud Storage.
+  # Run the following command to grant the Compute Engine default service account access to read and write pipeline artifacts in Google Cloud Storage as well as create the BigQuery tables for the notebook 00_environment_setup.ipynb.
   PROJECT_ID=$(gcloud config get-value project)
   PROJECT_NUM=$(gcloud projects list --filter="$PROJECT_ID" --format="value(PROJECT_NUMBER)")
   gcloud projects add-iam-policy-binding $PROJECT_ID \
         --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com"\
         --role='roles/storage.admin'
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+        --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com"\
+        --role='roles/bigquery.user'
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+        --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com"\
+        --role='roles/bigquery.jobUser'
   ```
 
 #### Step 2: Create a User-Managed Notebook instance on Vertex AI Workbench
