@@ -64,7 +64,7 @@ Please make sure that you have selected a Google Cloud project as shown below:
   PROJECT_NUM=$(gcloud projects list --filter="$PROJECT_ID" --format="value(PROJECT_NUMBER)")
   gcloud projects add-iam-policy-binding $PROJECT_ID \
         --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com"\
-        --role='roles/storage.admin' \
+        --role='roles/storage.admin'
   gcloud projects add-iam-policy-binding $PROJECT_ID \
       --member="serviceAccount:${PROJECT_NUM}@cloudbuild.gserviceaccount.com"\
       --role='roles/aiplatform.admin'
