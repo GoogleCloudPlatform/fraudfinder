@@ -54,6 +54,7 @@ Please make sure that you have selected a Google Cloud project as shown below:
   gcloud services enable dataflow.googleapis.com
   gcloud services enable bigquery.googleapis.com
   gcloud services enable artifactregistry.googleapis.com
+  gcloud services enable iam.googleapis.com
   
   gcloud pubsub subscriptions create "ff-tx-sub" --topic="ff-tx" --topic-project="cymbal-fraudfinder"
   gcloud pubsub subscriptions create "ff-txlabels-sub" --topic="ff-txlabels" --topic-project="cymbal-fraudfinder"
