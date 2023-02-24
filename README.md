@@ -57,6 +57,7 @@ Please make sure that you have selected a Google Cloud project as shown below:
   gcloud services enable iam.googleapis.com
   
   gcloud pubsub subscriptions create "ff-tx-sub" --topic="ff-tx" --topic-project="cymbal-fraudfinder"
+  gcloud pubsub subscriptions create "ff-tx-for-feat-eng-sub" --topic="ff-tx" --topic-project="cymbal-fraudfinder"
   gcloud pubsub subscriptions create "ff-txlabels-sub" --topic="ff-txlabels" --topic-project="cymbal-fraudfinder"
   
   # Run the following command to grant the Compute Engine default service account access to read and write pipeline artifacts in Google Cloud Storage.
@@ -66,14 +67,20 @@ Please make sure that you have selected a Google Cloud project as shown below:
         --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com"\
         --role='roles/storage.admin'
   gcloud projects add-iam-policy-binding $PROJECT_ID \
-      --member="serviceAccount:${PROJECT_NUM}@cloudbuild.gserviceaccount.com"\
-      --role='roles/aiplatform.admin'
+        --member="serviceAccount:${PROJECT_NUM}@cloudbuild.gserviceaccount.com"\
+        --role='roles/aiplatform.admin'
   gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member="serviceAccount:service-${PROJECT_NUM}@gcp-sa-aiplatform-cc.iam.gserviceaccount.com"\
-    --role='roles/artifactregistry.writer'
+        --member="serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com"\
+        --role='roles/run.admin'
   gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member="serviceAccount:service-${PROJECT_NUM}@gcp-sa-aiplatform-cc.iam.gserviceaccount.com"\
-    --role='roles/storage.objectAdmin'   
+        --member="serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com"\
+        --role='roles/resourcemanager.projectIamAdmin'
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+        --member="serviceAccount:service-${PROJECT_NUM}@gcp-sa-aiplatform-cc.iam.gserviceaccount.com"\
+        --role='roles/artifactregistry.writer'
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+        --member="serviceAccount:service-${PROJECT_NUM}@gcp-sa-aiplatform-cc.iam.gserviceaccount.com"\
+        --role='roles/storage.objectAdmin'   
   ```
 
 #### Step 2: Create a User-Managed Notebook instance on Vertex AI Workbench
