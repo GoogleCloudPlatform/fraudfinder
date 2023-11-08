@@ -1,0 +1,9 @@
+google-cloud-pubsub<=2.18.4
+google-cloud-bigquery<=3.13.0
+google-cloud-bigquery-storage<=2.22.0
+google-cloud-dataflow-client<=0.8.5
+google-cloud-aiplatform<=1.36.1
+plotly<=5.18.0
+itables<=1.6.2
+xgboost<=2.0.1
+kfp<=2.3.0
