@@ -76,10 +76,10 @@ Please make sure that you have selected a Google Cloud project as shown below:
         --member="serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com"\
         --role='roles/resourcemanager.projectIamAdmin'
   gcloud projects add-iam-policy-binding $PROJECT_ID \
-        --member="serviceAccount:service-${PROJECT_NUM}@gcp-sa-aiplatform-cc.iam.gserviceaccount.com"\
+        --member="serviceAccount:service-${PROJECT_NUM}@gcp-sa-aiplatform.iam.gserviceaccount.com"\
         --role='roles/artifactregistry.writer'
   gcloud projects add-iam-policy-binding $PROJECT_ID \
-        --member="serviceAccount:service-${PROJECT_NUM}@gcp-sa-aiplatform-cc.iam.gserviceaccount.com"\
+        --member="serviceAccount:service-${PROJECT_NUM}@gcp-sa-aiplatform.iam.gserviceaccount.com"\
         --role='roles/storage.objectAdmin'   
   ```
 
