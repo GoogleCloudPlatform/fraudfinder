@@ -80,7 +80,10 @@ Please make sure that you have selected a Google Cloud project as shown below:
         --role='roles/artifactregistry.writer'
   gcloud projects add-iam-policy-binding $PROJECT_ID \
         --member="serviceAccount:service-${PROJECT_NUM}@gcp-sa-aiplatform.iam.gserviceaccount.com"\
-        --role='roles/storage.objectAdmin'   
+        --role='roles/storage.objectAdmin'
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+      --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com"\
+      --role='roles/storage.admin'
   ```
 
 #### Step 2: Create a User-Managed Notebook instance on Vertex AI Workbench
