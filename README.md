@@ -84,6 +84,9 @@ Please make sure that you have selected a Google Cloud project as shown below:
   gcloud projects add-iam-policy-binding $PROJECT_ID \
       --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com"\
       --role='roles/storage.admin'
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+      --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com"\
+      --role='roles/pubsub.subscriber'
   ```
 
 #### Step 2: Create a User-Managed Notebook instance on Vertex AI Workbench
